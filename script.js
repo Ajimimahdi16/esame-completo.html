@@ -339,22 +339,33 @@ console.log(cocatena);
 /*
 Richiesta 1: Scrivi un ciclo for che calcoli i "punti totali" della squadra. 
 (Devi sommare tutte le vittorie e i pareggi, ma NON le sconfitte).
-Richiesta 2: Scrivi un ciclo for che conti (quindi un contatore, non una somma) quante VITTORIE ci sono state in totale.
+Richiesta 2: Scrivi un ciclo for che conti (quindi un contatore, non una somma) quante VITTORIE 
+ci sono state in totale.
 */
 const matchResults = [3, 1, -1, 3, -1, 1, 3];
 
 let puntiTotali = 0;
-const vittorie = 3;
-const pareggi = 1;
-const sconfitte = - 1;
-const contatore = 0;
+
 
 for (let i = 0 ; i < matchResults.length; i ++){
+  if(matchResults[i] > 0)
 puntiTotali += matchResults[i];
 
-};
 
+};
 console.log(puntiTotali);
+
+let contatore = 0 ;
+
+for (let i = 0 ; i < matchResults.length; i ++){
+  if(matchResults[i] >= 3)
+    contatore++
+;
+
+
+};
+console.log(contatore);
+
 
 /*
 Richiesta 1: Usa .forEach() sull'array "cart" per stampare in console una frase per ogni prodotto nel formato: 
@@ -410,6 +421,309 @@ const messaggi = emails.forEach( email => console.log(`Invio email a: ${email}` 
 const emailDomains = emails.map(m => m.toUpperCase())
 console.log(emailDomains);
 
+// ============================================================
+// ESERCIZI DI ALLENAMENTO - livello crescente
+// Nessuna soluzione inclusa: scrivi il codice sotto ogni richiesta.
+// ============================================================
+
+
+// ------------------------------------------------------------
+// LIVELLO FACILE — accesso a oggetti/array annidati
+// ------------------------------------------------------------
+
+const gym = {
+  name: "PowerGym",
+  city: "Torino",
+  rooms: ["Sala Pesi", "Sala Corsi", "Piscina"],
+  trainers: [
+    {
+      id: "T1",
+      name: "Marco",
+      specialty: { main: "Bodybuilding", secondary: "Powerlifting" },
+      certifications: ["ISSA", "FIT"]
+    },
+    {
+      id: "T2",
+      name: "Giulia",
+      specialty: { main: "Yoga", secondary: "Pilates" },
+      certifications: ["RYT-200"]
+    }
+  ]
+};
+
+const thirdRoom = gym.rooms[2];
+console.log(thirdRoom);
+
+const mainSpecialty = gym.trainers[1].specialty.main;
+console.log(mainSpecialty);
+
+const ultimaCertificazione = gym.trainers[0].certifications[1] ;
+console.log(ultimaCertificazione);
+/*
+Richiesta 1: Salva in una variabile "thirdRoom" la terza sala dell'array rooms.
+
+Richiesta 2: Salva in una variabile "mainSpecialty" la disciplina principale
+(main) del secondo trainer.
+
+Richiesta 3: Usa .length sull'array certifications di Marco per estrarre
+la SUA ULTIMA certificazione, senza hardcodare l'indice.
+*/
+
+
+// ------------------------------------------------------------
+// LIVELLO FACILE/MEDIO — bracket notation dinamica
+// ------------------------------------------------------------
+
+const recipe = {
+  name: "Carbonara",
+  servings: 4,
+  nutrition: {
+    calories: 650,
+    protein: 28
+  }
+};
+
+const propKey = "servings";
+console.log(recipe["servings"]);
+const nestedKey = "protein";
+console.log(recipe.nutrition["protein"]);
+
+/*
+Richiesta 1: Usa la variabile propKey e la bracket notation per estrarre
+il valore 4. Vietato scrivere recipe.servings.
+
+Richiesta 2: Usa la variabile nestedKey e la bracket notation per estrarre
+il valore 28 da recipe.nutrition. Vietato scrivere recipe.nutrition.protein.
+*/
 
 
 
+// ------------------------------------------------------------
+// LIVELLO MEDIO — cicli for
+// ------------------------------------------------------------
+
+const dailySteps = [8200, 5400, 12000, 3000, 9800, 15000, 6700];
+
+
+
+/*
+Richiesta 1: Scrivi un ciclo for che calcoli quanti giorni la persona
+ha superato i 10000 passi (contatore).
+
+Richiesta 2: Scrivi un ciclo for che calcoli la media dei passi
+sull'intera settimana (somma / lunghezza array). Salvala in "averageSteps".
+
+Richiesta 3: Scrivi un ciclo for che costruisca una stringa "stepsReport"
+formattata così (usa un contatore giorno, partendo da 1):
+"Giorno 1: 8200 passi | Giorno 2: 5400 passi | ..."
+(niente separatore dopo l'ultimo giorno)
+*/
+
+
+// ------------------------------------------------------------
+// LIVELLO MEDIO — array di oggetti + metodi combinati
+// ------------------------------------------------------------
+
+const orders = [
+  { id: "O1", customer: "Anna", total: 45.5, status: "shipped" },
+  { id: "O2", customer: "Luca", total: 120, status: "pending" },
+  { id: "O3", customer: "Sara", total: 30, status: "shipped" },
+  { id: "O4", customer: "Marco", total: 200, status: "cancelled" }
+];
+
+
+/*
+Richiesta 1: Usa .find() per estrarre l'intero ordine con id === "O2".
+
+Richiesta 2: Usa .filter() per ottenere solo gli ordini con status
+"shipped" E total maggiore di 40. Salva in "shippedHighValue".
+
+Richiesta 3: Concatena .filter() e .map() per ottenere un array di stringhe
+con SOLO i nomi dei clienti i cui ordini NON sono stati cancellati.
+Output atteso: ["Anna", "Luca", "Sara"]
+*/
+
+const estrazione = orders.find( estrare => estrare.id === "O2")
+
+console.log(estrazione);
+
+const shippedHighValue = orders.filter(filtrati =>(filtrati.status === "shipped" && filtrati.total > 40))
+console.log(shippedHighValue);
+
+const ordineNonCancellatti = orders
+.filter(non =>(non.status != "cancelled" ))
+.map(non=> non.customer);
+console.log(ordineNonCancellatti);
+
+
+// ------------------------------------------------------------
+// LIVELLO MEDIO/DIFFICILE — reduce
+// ------------------------------------------------------------
+
+const invoice = [
+  { item: "Monitor", price: 150, qty: 2 },
+  { item: "Tastiera", price: 40, qty: 1 },
+  { item: "Mouse", price: 20, qty: 3 }
+];
+
+/*
+Richiesta 1: Usa .reduce() per calcolare il totale della fattura
+(prezzo * quantità per ogni riga, sommato). Salva in "invoiceTotal".
+
+Richiesta 2: Usa .reduce() per trovare l'oggetto con il prezzo unitario
+più alto, senza usare un ciclo for. Salva in "mostExpensiveItem".
+*/
+//const invoiceTotal = invoice.map(cal => (cal.price * cal.qty))
+
+const invoiceTotal = invoice.reduce((sommato , cal) => sommato + (cal.price * cal.qty), 0)
+console.log(invoiceTotal)
+
+const mostExpensiveItem = invoice.reduce((max, item) => (item.price > max.price) ? item : max);
+console.log(mostExpensiveItem)
+
+// ------------------------------------------------------------
+// LIVELLO DIFFICILE — dati annidati su più livelli + più metodi
+// ------------------------------------------------------------
+/*
+Richiesta 1: Senza hardcodare indici di classe/studente, usa .find() per
+estrarre l'intero oggetto studente di nome "Marco" all'interno della classe
+"3B". (Suggerimento: prima trova la classe con .find(), poi lo studente
+con .find() sull'array students di quella classe).
+
+Richiesta 2: Calcola, con .reduce() o un ciclo for, la media voti di ogni
+studente, e crea un nuovo array "classAverages" con oggetti nel formato:
+{ name: "Elena", average: 7 }
+per TUTTI gli studenti di TUTTE le classi (quindi dovrai unire in qualche
+modo gli studenti delle due classi prima o durante il calcolo).
+
+Richiesta 3: Trova il nome dello studente con la media voti più alta
+in assoluto tra tutte le classi. Salvalo in "topStudent".
+*/
+const school = {
+  name: "Liceo Galilei",
+  classes: [
+    {
+      name: "3A",
+      students: [
+        { name: "Elena", grades: [7, 8, 6] },
+        { name: "Paolo", grades: [9, 9, 10] }
+      ]
+    },
+    {
+      name: "3B",
+      students: [
+        { name: "Giulia", grades: [5, 6, 6] },
+        { name: "Marco", grades: [8, 7, 9] }
+      ]
+    }
+  ]
+};
+
+const trovaStudente = school.classes
+  .find(classe => classe.name === "3B")
+  .students.find(studente => studente.name === "Marco");
+
+console.log(trovaStudente);
+
+const mediaVoti = school.classes
+
+
+const nomi = ["Elena", "Marco", "Sara", "Luca"];
+// Scrivi un ciclo for che cerchi "Sara" nell'array e salvi in "posizioneTrovata"
+// l'INDICE in cui si trova (non il valore, l'indice: quindi 2)
+let posizioneTrovata = "";
+for (let i = 0 ; i < nomi.length ; i ++){
+if(nomi[i] === "Sara"){
+  posizioneTrovata = [i]
+}
+}
+console.log(posizioneTrovata);
+
+const spese = [45, -20, 100, -15, 60];
+// Positivo = entrata, negativo = uscita
+// Richiesta A: conta quante uscite ci sono state (contatore) → "numeroUscite"
+// Richiesta B: somma tutte le entrate (accumulatore) → "totaleEntrate"
+
+let numeroUscite = 0;
+let totaleEntrate = 0;
+
+for (let i = 0 ; i < spese.length ; i ++){
+  if(spese[i] < 0){
+    numeroUscite++
+  }else if(spese[i] > 0 ){
+    totaleEntrate += spese[i];
+    }
+}
+console.log(numeroUscite);
+console.log(totaleEntrate);
+
+const voti = [4, 6, 8, 3, 9, 5];
+// Crea un nuovo array "votiPromossi" che contenga SOLO i voti >= 6
+// (usa .push() dentro un if, niente .filter())
+
+let votiPromossi = [];
+
+for (let i = 0 ; i < voti.length ; i ++){
+  if(voti[i] >= 6){
+   votiPromossi.push(voti[i]);
+  }
+}
+console.log(votiPromossi);
+
+
+const temperature = [22, 15, 30, 8, 19];
+// Trova sia il valore massimo che il valore minimo nello stesso ciclo
+// (un solo for, due variabili: "tempMax" e "tempMin")
+let tempMax = 22;
+let tempMin = 22 ;
+
+for (let i = 0 ; i < temperature.length ; i ++){
+  if(temperature[i] > tempMax){
+    tempMax = temperature[i];
+  } if(temperature[i] < tempMin){
+    tempMin =temperature[i];
+  }
+}
+console.log(tempMax);
+console.log(tempMin);
+
+
+const compiti = ["Matematica", "Italiano", "Storia", "Inglese", "Arte"];
+// Trova l'indice di "Inglese" e salvalo in "indiceInglese"
+// Stavolta però: se non lo trova, "indiceInglese" deve restare -1
+// (suggerimento: la variabile iniziale, prima del ciclo, deve partire da -1)
+
+
+
+
+const eta = [12, 25, 17, 30, 15, 45, 8];
+// Conta quanti sono minorenni (età < 18) → "numeroMinorenni"
+// Conta quanti sono maggiorenni (età >= 18) → "numeroMaggiorenni"
+// (un solo ciclo, due contatori)
+
+
+
+
+const prezzi = [10, 25, 8, 40, 15];
+// Crea un nuovo array "prezziScontati" che contenga ogni prezzo
+// scontato del 10% (quindi moltiplicato per 0.9)
+// ATTENZIONE: qui non filtri niente, trasformi OGNI elemento
+
+
+const puntiPartita = [-5, 12, -8, 20, 3, -15];
+// Trova il valore massimo e il valore minimo nello stesso ciclo
+// "puntiMax" e "puntiMin"
+// Occhio a come inizializzi le due variabili PRIMA del ciclo
+
+
+
+const magazzino = [
+  { nome: "Vite", quantita: 0 },
+  { nome: "Bullone", quantita: 15 },
+  { nome: "Dado", quantita: 0 },
+  { nome: "Rondella", quantita: 8 }
+];
+// Crea una stringa "prodottiEsauriti" che elenchi SOLO i nomi
+// dei prodotti con quantita === 0, separati da virgola
+// Output atteso: "Vite, Dado"
+// (suggerimento: parti da stringa vuota "" e concatena con +=)

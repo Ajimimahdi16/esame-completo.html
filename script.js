@@ -693,13 +693,34 @@ const compiti = ["Matematica", "Italiano", "Storia", "Inglese", "Arte"];
 // Stavolta però: se non lo trova, "indiceInglese" deve restare -1
 // (suggerimento: la variabile iniziale, prima del ciclo, deve partire da -1)
 
-
+let indiceInglese = -1;
+for (let i = 0; i < compiti.length; i++) {
+  if (compiti[i] === "Inglese") {
+    indiceInglese = i;
+  }
+}
+console.log(indiceInglese); 
 
 
 const eta = [12, 25, 17, 30, 15, 45, 8];
 // Conta quanti sono minorenni (età < 18) → "numeroMinorenni"
 // Conta quanti sono maggiorenni (età >= 18) → "numeroMaggiorenni"
 // (un solo ciclo, due contatori)
+
+let numeroMinorenni = 0;
+let numeroMaggiorenni = 0;
+
+for ( let i = 0 ; i < eta.length ; i++){
+  if(eta[i] < 18){
+    numeroMinorenni++
+  } if(eta[i] >= 18){
+    numeroMaggiorenni++
+  }
+}
+console.log(numeroMinorenni);
+console.log(numeroMaggiorenni);
+
+
 
 
 
@@ -709,11 +730,28 @@ const prezzi = [10, 25, 8, 40, 15];
 // scontato del 10% (quindi moltiplicato per 0.9)
 // ATTENZIONE: qui non filtri niente, trasformi OGNI elemento
 
+const numeroMaggiorenne = prezzi.map(sconto =>(sconto * 0.9));
+console.log(numeroMaggiorenne);
+
 
 const puntiPartita = [-5, 12, -8, 20, 3, -15];
 // Trova il valore massimo e il valore minimo nello stesso ciclo
 // "puntiMax" e "puntiMin"
 // Occhio a come inizializzi le due variabili PRIMA del ciclo
+let valoreMassimi = puntiPartita[0];  // parto dal primo elemento vero
+let valoreMinimi = puntiPartita[0];   // stesso primo elemento
+
+
+for (let i = 0; i < puntiPartita.length; i++) {
+  if (puntiPartita[i] > valoreMassimi) {
+    valoreMassimi = puntiPartita[i];
+  }
+  if (puntiPartita[i] < valoreMinimi) {
+    valoreMinimi = puntiPartita[i];
+  }
+}
+console.log(valoreMassimi); // 20
+console.log(valoreMinimi);  // -15
 
 
 
@@ -727,3 +765,118 @@ const magazzino = [
 // dei prodotti con quantita === 0, separati da virgola
 // Output atteso: "Vite, Dado"
 // (suggerimento: parti da stringa vuota "" e concatena con +=)
+
+const prodottiEsauriti = magazzino
+.filter(nomi =>(nomi.quantita === 0))
+.map(nomi =>(nomi.nome))
+console.log(prodottiEsauriti);
+
+/*Parte 1 — Accesso base ad array e oggetti annidati
+js*/
+const azienda = {
+  nome: "DataCorp",
+  sedi: ["Milano", "Roma", "Napoli"],
+  dipartimenti: [
+    {
+      nome: "IT",
+      responsabile: { nome: "Marco", anni: 8 },
+      progetti: ["Sito Web", "App Mobile", "Database"]
+    },
+    {
+      nome: "Marketing",
+      responsabile: { nome: "Giulia", anni: 5 },
+      progetti: ["Campagna Social"]
+    }
+  ]
+};
+//Salva in secondaSede la seconda sede dell'array sedi.
+//Salva in nomeResponsabileIT il nome del responsabile del dipartimento IT (attenzione, è annidato dentro responsabile).
+//Usa .length per estrarre l'ULTIMO progetto del dipartimento IT, senza hardcodare l'indice.
+//Salva in annidiEsperienzaMarketing gli anni di esperienza del responsabile Marketing.
+
+const secondaSede = azienda.sedi[1];
+console.log(secondaSede);
+
+const nomeResponsabileIT = azienda.dipartimenti[0].responsabile.nome
+console.log(nomeResponsabileIT); 
+
+const lunghezza = azienda.dipartimenti[0].progetti[2];
+console.log(lunghezza);
+
+const annidiEsperienzaMarketing = azienda.dipartimenti[1].responsabile.anni;
+console.log(annidiEsperienzaMarketing)
+
+
+
+/*Parte 2 — Ciclo for di ripasso
+js*/
+const vendite = [120, 340, 90, 560, 210, 45, 780];
+//Conta quante vendite hanno superato i 200 (contatore) → venditeAlte.
+//Somma tutte le vendite sotto i 100 → sommaVenditeBasse.
+//Trova il valore massimo E la sua posizione (indice) nello stesso ciclo → venditaMax e posizioneMax.
+//Crea un nuovo array venditeArrotondate che contenga ogni vendita divisa per 10 e arrotondata (usa Math.round()), costruendolo con .push() dentro un ciclo for (non con .map()).
+
+
+
+/*Parte 3 — .map()
+js*/
+const prodotti = [
+  { nome: "Cuffie", prezzo: 50 },
+  { nome: "Mouse", prezzo: 20 },
+  { nome: "Monitor", prezzo: 200 }
+];
+//Usa .map() per creare nomiProdotti, un array con solo i nomi.
+//Usa .map() per creare prezziIva, un array con ogni prezzo maggiorato del 22% (arrotondato a 2 decimali con .toFixed(2)).
+//Usa .map() per creare descrizioni, un array di stringhe nel formato "Cuffie: 50€" (usa i template literals dentro la map)./
+
+const nomiProdotti = prodotti.map(nomiProdotto => (nomiProdotto.nome))
+console.log(nomiProdotti)
+
+const prezziIva = prodotti.map(sconto => (sconto.prezzo.toFixed(2) * 0.22))
+console.log(prezziIva)
+
+const annidati = prodotti.map(anidati =>(`${anidati.nome} ${anidati.prezzo}`))
+console.log(annidati)
+
+/*Parte 4 — .filter()
+js*/
+const partecipanti = [
+  { nome: "Luca", eta: 22, pagato: true },
+  { nome: "Sara", eta: 17, pagato: true },
+  { nome: "Marco", eta: 30, pagato: false },
+  { nome: "Elena", eta: 25, pagato: true }
+];
+//Usa .filter() per ottenere solo i maggiorenni → maggiorenni.
+//Usa .filter() per ottenere solo chi ha pagato E ha più di 18 anni → partecipantiValidi.
+//Usa .filter() per ottenere chi NON ha pagato → nonPagati.
+/*Parte 5 — .find()
+js*/
+const biglietti = [
+  { codice: "B001", posto: "12A", usato: false },
+  { codice: "B002", posto: "5C", usato: true },
+  { codice: "B003", posto: "8B", usato: false }
+];
+//Usa .find() per estrarre l'intero biglietto con codice "B002" → bigliettoTrovato.
+//Usa .find() per trovare il PRIMO biglietto non usato → primoDisponibile.
+//Stampa in console la frase "Il posto libero è 12A" estraendo il posto direttamente dal risultato di .find() (senza salvarlo prima in un'altra variabile, fallo in un'unica riga).
+/*Parte 6 — Combinazioni (filter + map) e navigazione annidata profonda
+js*/
+const negozi = [
+  {
+    citta: "Torino",
+    clienti: [
+      { nome: "Anna", spesa: 45 },
+      { nome: "Luca", spesa: 120 }
+    ]
+  },
+  {
+    citta: "Genova",
+    clienti: [
+      { nome: "Sara", spesa: 200 },
+      { nome: "Marco", spesa: 15 }
+    ]
+  }
+];
+//Senza hardcodare indici, usa .find() per trovare il negozio di "Genova", poi dentro quel risultato usa .find() per trovare il cliente "Sara" → clienteGenova.
+//Concatena .filter() e .map() sul negozio di Torino per ottenere solo i nomi dei clienti che hanno speso più di 50 → clientiTopTorino.
+//(Difficile) Usa un ciclo for annidato (un for fuori sui negozi, un for dentro sui clienti) per sommare la spesa TOTALE di tutti i clienti di tutti i negozi → spesaTotaleGenerale.

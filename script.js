@@ -815,6 +815,25 @@ const vendite = [120, 340, 90, 560, 210, 45, 780];
 //Somma tutte le vendite sotto i 100 → sommaVenditeBasse.
 //Trova il valore massimo E la sua posizione (indice) nello stesso ciclo → venditaMax e posizioneMax.
 //Crea un nuovo array venditeArrotondate che contenga ogni vendita divisa per 10 e arrotondata (usa Math.round()), costruendolo con .push() dentro un ciclo for (non con .map()).
+let venditeAlte = 0;
+let sommaVenditeBasse = 0;
+let venditaMax = 120 ;
+let posizioneMax = "";
+
+for ( let i = 0; i < vendite.length ; i ++){
+  if(vendite[i] > 200){
+    venditeAlte++
+  }if(vendite[i] < 100){
+    sommaVenditeBasse += vendite[i];
+  }if(vendite[i]> venditaMax){
+    venditaMax = vendite[i]
+    posizioneMax = [i]
+  }
+}
+console.log(venditeAlte);
+console.log(sommaVenditeBasse);
+console.log(venditaMax);
+console.log(posizioneMax);
 
 
 
@@ -832,11 +851,11 @@ const prodotti = [
 const nomiProdotti = prodotti.map(nomiProdotto => (nomiProdotto.nome))
 console.log(nomiProdotti)
 
-const prezziIva = prodotti.map(sconto => (sconto.prezzo.toFixed(2) * 0.22))
+const prezziIva = prodotti.map(sconto => (sconto.prezzo * (1.22.toFixed(2))))
 console.log(prezziIva)
 
-const annidati = prodotti.map(anidati =>(`${anidati.nome} ${anidati.prezzo}`))
-console.log(annidati)
+const descrzione  = prodotti.map(anidati =>(`${anidati.nome} ${anidati.prezzo}`))
+console.log(descrzione)
 
 /*Parte 4 — .filter()
 js*/
@@ -849,6 +868,16 @@ const partecipanti = [
 //Usa .filter() per ottenere solo i maggiorenni → maggiorenni.
 //Usa .filter() per ottenere solo chi ha pagato E ha più di 18 anni → partecipantiValidi.
 //Usa .filter() per ottenere chi NON ha pagato → nonPagati.
+
+const etaMaggiorenne = partecipanti.filter(mag =>(mag.eta >= 18))
+console.log(etaMaggiorenne);
+
+const partecipantiValidi = partecipanti.filter(pag =>(pag.pagato === true && pag.eta >= 18))
+console.log(partecipantiValidi);
+
+const nonPagati = partecipanti.filter(nonPag =>(nonPag.pagato === false ))
+console.log(nonPagati);
+
 /*Parte 5 — .find()
 js*/
 const biglietti = [
@@ -859,6 +888,16 @@ const biglietti = [
 //Usa .find() per estrarre l'intero biglietto con codice "B002" → bigliettoTrovato.
 //Usa .find() per trovare il PRIMO biglietto non usato → primoDisponibile.
 //Stampa in console la frase "Il posto libero è 12A" estraendo il posto direttamente dal risultato di .find() (senza salvarlo prima in un'altra variabile, fallo in un'unica riga).
+ const bigliettoTrovato = biglietti.find(big =>(big.codice === "B002" ))
+ console.log(bigliettoTrovato);
+
+ const primoDisponibile =biglietti.find(dispo =>(dispo.usato === false))
+ console.log(primoDisponibile);
+
+console.log(`Il posto libero è ${biglietti.find(b => !b.usato).posto}`);
+
+
+
 /*Parte 6 — Combinazioni (filter + map) e navigazione annidata profonda
 js*/
 const negozi = [
@@ -880,3 +919,185 @@ const negozi = [
 //Senza hardcodare indici, usa .find() per trovare il negozio di "Genova", poi dentro quel risultato usa .find() per trovare il cliente "Sara" → clienteGenova.
 //Concatena .filter() e .map() sul negozio di Torino per ottenere solo i nomi dei clienti che hanno speso più di 50 → clientiTopTorino.
 //(Difficile) Usa un ciclo for annidato (un for fuori sui negozi, un for dentro sui clienti) per sommare la spesa TOTALE di tutti i clienti di tutti i negozi → spesaTotaleGenerale.
+
+const clienteGenova = negozi
+.find(ciente =>(ciente.citta ===  "Genova"))
+.clienti.find(ciente =>(ciente.nome === "Sara"))
+console.log(clienteGenova);
+
+const clientiTopTorino = negozi
+  .find(negozio => negozio.citta === "Torino")
+  .clienti
+  .filter(cliente => cliente.spesa > 50)
+  .map(cliente => cliente.nome);
+  console.log(clientiTopTorino);
+
+
+  //ESERCIZI EXTRA 
+
+  const temperatura = [18, 25, 12, 30, 8, 22];
+// A) Conta quante temperature superano i 20 → "giorniCaldi"
+// B) Somma tutte le temperature sotto i 15 → "sommaFreddo"
+// C) Trova il valore massimo E LA SUA POSIZIONE nello stesso ciclo
+//    → "tempMax" e "posizioneTempMax"
+// (ricordati: quando aggiorni il massimo, in quello stesso momento
+// aggiorna anche l'indice, nello stesso if)
+
+let giorniCaldi = 0;
+let sommaFreddo = 0;
+let tempoMax = 18;
+let posizioneTempMax = "";
+
+for(let i = 0 ; i < temperatura.length ; i ++){
+  if(temperatura[i] > 20){
+    giorniCaldi++
+  }if(temperatura[i] < 15 ){
+    sommaFreddo += temperatura[i]
+  }if(temperatura[i] > tempoMax){
+    tempoMax = temperatura[i]
+    posizioneTempMax = [i]
+  }
+}
+
+console.log(giorniCaldi)
+console.log(sommaFreddo)
+console.log(tempoMax)
+console.log(posizioneTempMax)
+
+
+const distanze = [1500, 3200, 800, 5000, 2100];
+// Crea un nuovo array "distanzeKm" con ogni distanza convertita
+// da metri a km, arrotondata a 1 decimale (usa Math.round(x*10)/10)
+// Costruiscilo con un ciclo for e .push(), NON con .map()
+
+let distanzeKm = [];
+
+
+
+const bilancio = [-200, -50, -800, -30, -400];
+// Trova il valore massimo (quello meno negativo) → "bilancioMigliore"
+// ATTENZIONE: se parti da 0 come punto di partenza, il risultato sarà
+// sbagliato, perché nell'array non c'è nessun valore positivo.
+// Da dove devi partire allora?
+
+let bilancioMigliore = bilancio[0];
+
+for (let i = 0 ; i < bilancio.length ; i ++){
+  if(bilancio[i] < bilancioMigliore){
+    bilancioMigliore = bilancio[i]
+  }
+}
+
+console.log(bilancioMigliore);
+
+const misure = [3.456, 7.891, 12.333];
+// Usa .map() per creare "misureCm" convertendo ogni misura da metri
+// a centimetri (moltiplica per 100) e arrotonda a 1 decimale con
+// .toFixed(1). Il .toFixed deve applicarsi al RISULTATO del calcolo,
+// non a un numero preso da solo — occhio a dove metti le parentesi.
+
+const misureCm = misure.map(misura =>((misura * 100).toFixed(1)))
+
+console.log(misureCm);
+
+const libri = [
+  { titolo: "Il Nome della Rosa", pagine: 512 },
+  { titolo: "1984", pagine: 328 }
+];
+// Usa .map() per creare "schedeLibri", un array di stringhe ESATTAMENTE
+// in questo formato (controlla virgole, due punti, parole):
+// "Il Nome della Rosa - 512 pagine"
+
+const schedeLibri = libri.map(libri =>(`${libri.titolo} - ${libri.pagine} pagine `))
+console.log(schedeLibri);
+
+const prodotto = [
+  { nome: "A", scorte: 10 },
+  { nome: "B", scorte: 0 },
+  { nome: "C", scorte: 5 }
+];
+// Usa .filter() per ottenere i prodotti "disponibili", cioè quelli
+// con scorte MAGGIORI O UGUALI a 5 → "prodottiDisponibili"
+// (pensaci: un prodotto con scorte esattamente 5 è disponibile o no?)
+
+const disponibili = prodotto.filter(dip =>(dip.scorte > 0))
+console.log(disponibili)
+const prodottiDisponibili = prodotto.filter(magg =>(magg.scorte >= 5))
+console.log(prodottiDisponibili);
+
+const impiegati = [
+  { nome: "Luca", ruolo: "junior" },
+  { nome: "Sara", ruolo: "senior" }
+];
+// Stampa in un'unica riga: "Il senior è Sara"
+// estraendo il nome direttamente dal risultato di .find(),
+// senza salvarlo prima in una variabile.
+// (occhio: === per confrontare, mai un solo =)
+
+impiegati.find(dipendente =>(console.log(`il ${dipendente.ruolo} è ${dipendente.nome}`)))
+
+
+const palestre = [
+  {
+    citta: "Torino",
+    corsi: [
+      { nome: "Yoga", posti: 5 },
+      { nome: "Pilates", posti: 0 }
+    ]
+  },
+  {
+    citta: "Milano",
+    corsi: [
+      { nome: "Spinning", posti: 8 },
+      { nome: "Zumba", posti: 3 }
+    ]
+  }
+];
+// Senza hardcodare indici: trova la palestra di "Milano", poi dentro
+// quella trova il corso "Zumba" → "corsoTrovato"
+
+
+
+
+const scuole = [
+  {
+    nome: "Liceo A",
+    studenti: [
+      { nome: "Elena", media: 8.5 },
+      { nome: "Paolo", media: 6.2 }
+    ]
+  },
+  {
+    nome: "Liceo B",
+    studenti: [
+      { nome: "Giulia", media: 9.1 },
+      { nome: "Marco", media: 5.5 }
+    ]
+  }
+];
+// Trova prima il "Liceo B", poi filtra i suoi studenti con media > 7
+// e mappa solo i nomi → "studentiBraviLiceoB"
+// (NON fare filter/map direttamente su "scuole" — prima naviga fino
+// all'array giusto, come abbiamo detto per clientiTopTorino)
+
+
+
+const magazzini = [
+  {
+    citta: "Roma",
+    prodotti: [
+      { nome: "Vite", valore: 100 },
+      { nome: "Bullone", valore: 50 }
+    ]
+  },
+  {
+    citta: "Torino",
+    prodotti: [
+      { nome: "Dado", valore: 30 },
+      { nome: "Rondella", valore: 20 }
+    ]
+  }
+];
+// Usa due cicli for annidati (uno sui magazzini, uno sui prodotti
+// di ogni magazzino) per sommare il valore TOTALE di tutti i
+// prodotti di tutti i magazzini → "valoreTotaleMagazzini"
